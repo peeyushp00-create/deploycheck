@@ -1,0 +1,33 @@
+name: 'deploycheck'
+description: 'Catch bugs that work locally and break on deploy: wrong-case imports, undocumented environment variables and exposed .env files.'
+author: 'Peeyush'
+branding:
+  icon: 'check-circle'
+  color: 'green'
+
+inputs:
+  path:
+    description: 'Folder to scan, relative to the repository root.'
+    required: false
+    default: '.'
+  args:
+    description: 'Extra command-line options, e.g. "--only env --strict".'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Run deploycheck
+      shell: bash
+      env:
+        DEPLOYCHECK_PATH: ${{ inputs.path }}
+        DEPLOYCHECK_ARGS: ${{ inputs.args }}
+      run: |
+        set -f  # keep patterns like SENTRY_* literal
+        node "$GITHUB_ACTION_PATH/src/cli.js" "$DEPLOYCHECK_PATH" $DEPLOYCHECK_ARGS

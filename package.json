@@ -1,0 +1,60 @@
+{
+  "name": "deploycheck",
+  "version": "0.1.0",
+  "description": "Catch the bugs that work on your laptop and break when you deploy: wrong-case imports, undocumented environment variables and exposed .env files.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "bin": {
+    "deploycheck": "./src/cli.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.3"
+  },
+  "scripts": {
+    "test": "node --test",
+    "typecheck": "tsc -p jsconfig.json",
+    "check": "npm run typecheck && npm test && node src/cli.js . --ignore test"
+  },
+  "keywords": [
+    "deploy",
+    "preflight",
+    "vercel",
+    "render",
+    "linux",
+    "case-sensitive",
+    "import",
+    "env",
+    "dotenv",
+    ".env.example",
+    "secrets",
+    "gitignore",
+    "sveltekit",
+    "vite",
+    "nextjs",
+    "python",
+    "lint",
+    "github-action"
+  ],
+  "author": "Peeyush",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peeyushp00-create/deploycheck.git"
+  },
+  "bugs": {
+    "url": "https://github.com/peeyushp00-create/deploycheck/issues"
+  },
+  "homepage": "https://github.com/peeyushp00-create/deploycheck#readme",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  }
+}
